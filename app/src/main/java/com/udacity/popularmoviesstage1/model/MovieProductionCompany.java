@@ -1,0 +1,41 @@
+package com.udacity.popularmoviesstage1.model;
+
+/**
+ * Created by rai-y on 05/07/18.
+ */
+
+public class MovieProductionCompany {
+    private String logo_path;
+    private String name;
+    private String origin_country;
+
+    public MovieProductionCompany(String logo_path, String name, String origin_country) {
+        this.logo_path = logo_path;
+        this.name = name;
+        this.origin_country = origin_country;
+    }
+
+    public String getLogo_path() {
+        return logo_path;
+    }
+
+    public void setLogo_path(String logo_path) {
+        this.logo_path = logo_path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getOrigin_country() {
+        return origin_country;
+    }
+
+    public void setOrigin_country(String origin_country) {
+        this.origin_country = origin_country;
+    }
+}

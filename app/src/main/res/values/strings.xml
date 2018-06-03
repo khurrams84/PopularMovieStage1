@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="popularSearch">Popular</string>
+    <string name="topratedSearch">Top Rated</string>
+
+    <!-- Lifetime and Bundle -->
+    <string name="parcel_movies">PARCEL_MOVIES</string>
+    <string name="intent_parcel_movie">INTENT_PARCEL_MOVIE</string>
+
+    <!-- Preference items -->
+    <string name="pref_sort_method_key">SORT_METHOD</string>
+    <string name="pref_sort_top_rated_key">top_rated</string>
+    <string name="pref_sort_pop_key">popular</string>
+
+    <!-- Error Messages -->
+    <string name="detail_error_message">Movie data not available</string>
+    <string name="error_need_internet">This application needs Internet connection to function.</string>
+
+
+    <!-- Titles -->
+    <!-- Title naming the activity Movie Details -->
+    <string name="title_activity_movie_details">Movie Details</string>
+
+    <!-- UI text -->
+    <!-- Headline for release date -->
+    <string name="heading_release_date">Release Date</string>
+    <!-- Headline for user vote average -->
+    <string name="heading_vote_average">Vote Average</string>
+    <!-- Runtime text -->
+    <string name="no_release_date_found">No release date found</string>
+    <string name="no_summary_found">No summary was found</string>
+
+    <!-- Some strings used for example layout during design -->
+    <string name="example_original_title">The Green Poster Man</string>
+    <string name="example_release_date">08–31–2015</string>
+    <string name="example_vote_average">8.2/10</string>
+    <string name="example_overview">A green, disconcerted, man takes on the mafia in underground North Korea to save his ferret. He\'ll find a lot of challenges, horror and romance on his journey. Who knows? Maybe Kim Jung-un makes a cameo appearance?</string>
+    <string name="description_movie_poster">Contains poster of movie</string>
+
+</resources>
