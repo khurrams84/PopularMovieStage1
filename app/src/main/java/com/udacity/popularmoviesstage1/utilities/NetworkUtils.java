@@ -48,7 +48,7 @@ public class NetworkUtils {
 
     public static URL buildMovieReviewUrl(String movieId) {
         Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieId + "/reviews").buildUpon()
-                .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
+                .appendQueryParameter(API_KEY, "<<api_key>>")
                 .appendQueryParameter(PARAM_LANGUAGE, "en-US")
                 .appendQueryParameter(PARAM_PAGE, "1")
                 .build();
@@ -65,7 +65,7 @@ public class NetworkUtils {
 
     public static URL buildMovieTrailerUrl(String movieId) {
         Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieId + "/videos").buildUpon()
-                .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
+                .appendQueryParameter(API_KEY, "<<api_key>>")
                 .appendQueryParameter(PARAM_LANGUAGE, "en-US")
                 .appendQueryParameter(PARAM_PAGE, "1")
                 .build();
