@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class NetworkUtils {
 
     //https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
-    //https://api.themoviedb.org/3/movie/popular?api_key=d8a5b17a785dacec5b559bf551b8257e&language=en-US&page=1
-    //https://api.themoviedb.org/3/movie/top_rated?api_key=d8a5b17a785dacec5b559bf551b8257e&language=en-US&page=1
-    //https://api.themoviedb.org/3/movie/550?api_key=d8a5b17a785dacec5b559bf551b8257e
+    //https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
+    //https://api.themoviedb.org/3/movie/top_rated?api_key=<<api_key>>&language=en-US&page=1
+    //https://api.themoviedb.org/3/movie/550?api_key=<<api_key>>
     //http://image.tmdb.org/t/p/w185/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg
 
     final static String MOVIE_DATABASE_BASE_URL = "https://api.themoviedb.org/3/movie";
@@ -31,7 +31,7 @@ public class NetworkUtils {
 
     public static URL buildSearchUrl(String movieSearchType) {
         Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieSearchType).buildUpon()
-                .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
+                .appendQueryParameter(API_KEY, "<<api_key>>")
                 .appendQueryParameter(PARAM_LANGUAGE, "en-US")
                 .appendQueryParameter(PARAM_PAGE, "1")
                 .build();
