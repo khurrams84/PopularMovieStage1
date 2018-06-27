@@ -29,8 +29,42 @@ public class NetworkUtils {
     //final static String sortBy = "stars";
 
 
-    public static URL buildUrl(String movieSearchType) {
+    public static URL buildSearchUrl(String movieSearchType) {
         Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieSearchType).buildUpon()
+                .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
+                .appendQueryParameter(PARAM_LANGUAGE, "en-US")
+                .appendQueryParameter(PARAM_PAGE, "1")
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    public static URL buildMovieReviewUrl(String movieId) {
+        Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieId + "/reviews").buildUpon()
+                .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
+                .appendQueryParameter(PARAM_LANGUAGE, "en-US")
+                .appendQueryParameter(PARAM_PAGE, "1")
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    public static URL buildMovieTrailerUrl(String movieId) {
+        Uri builtUri = Uri.parse(MOVIE_DATABASE_BASE_URL + "/" + movieId + "/videos").buildUpon()
                 .appendQueryParameter(API_KEY, "d8a5b17a785dacec5b559bf551b8257e")
                 .appendQueryParameter(PARAM_LANGUAGE, "en-US")
                 .appendQueryParameter(PARAM_PAGE, "1")

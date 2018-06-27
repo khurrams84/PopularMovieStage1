@@ -3,7 +3,10 @@ package com.udacity.popularmoviesstage1.utilities;
 import com.udacity.popularmoviesstage1.model.Movie;
 import com.udacity.popularmoviesstage1.model.MovieGenres;
 import com.udacity.popularmoviesstage1.model.MovieList;
+import com.udacity.popularmoviesstage1.model.MovieReview;
 import com.udacity.popularmoviesstage1.model.MovieSearchResult;
+import com.udacity.popularmoviesstage1.model.MovieReview;
+import com.udacity.popularmoviesstage1.model.MovieTrailer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,5 +71,61 @@ public class JsonUtils {
         }
 
         return movieList;
+    }
+
+    public static ArrayList<MovieReview> parseMovieReviewListJson(String json)
+    {
+        ArrayList<MovieReview> MovieReviewList = new ArrayList<MovieReview>();
+
+        if(json != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(json);
+
+                JSONArray jsonMovieReviewResultsArray = jsonObj.getJSONArray("results");
+                ArrayList<MovieSearchResult> movieSearchResultsList = new ArrayList<MovieSearchResult>();
+                for(int i=0;i<jsonMovieReviewResultsArray.length();i++){
+                    JSONObject jsonMovieReviewResult = jsonMovieReviewResultsArray.getJSONObject(i);
+
+                    MovieReview movieReview = new MovieReview();
+                    movieReview.setAuthor(jsonMovieReviewResult.getString("author"));
+                    movieReview.setContent(jsonMovieReviewResult.getString("content"));
+
+                    MovieReviewList.add(movieReview);
+                }
+            }
+            catch (final JSONException e) {
+                return null;
+            }
+        }
+
+        return MovieReviewList;
+    }
+
+    public static ArrayList<MovieTrailer> parseMovieTrailerListJson(String json)
+    {
+        ArrayList<MovieTrailer> MovieTrailerList = new ArrayList<MovieTrailer>();
+
+        if(json != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(json);
+
+                JSONArray jsonMovieTrailerResultsArray = jsonObj.getJSONArray("results");
+                ArrayList<MovieSearchResult> movieSearchResultsList = new ArrayList<MovieSearchResult>();
+                for(int i=0;i<jsonMovieTrailerResultsArray.length();i++){
+                    JSONObject jsonMovieReviewResult = jsonMovieTrailerResultsArray.getJSONObject(i);
+
+                    MovieTrailer movieTrailer = new MovieTrailer();
+                    movieTrailer.setName(jsonMovieReviewResult.getString("name"));
+                    movieTrailer.setKey(jsonMovieReviewResult.getString("key"));
+
+                    MovieTrailerList.add(movieTrailer);
+                }
+            }
+            catch (final JSONException e) {
+                return null;
+            }
+        }
+
+        return MovieTrailerList;
     }
 }

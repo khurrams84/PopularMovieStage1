@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.udacity.popularmoviesstage1.database.AppDatabase;
+import com.udacity.popularmoviesstage1.database.MovieEntry;
 import com.udacity.popularmoviesstage1.model.MovieList;
 import com.udacity.popularmoviesstage1.model.MovieSearchResult;
 import com.udacity.popularmoviesstage1.utilities.JsonUtils;
@@ -33,10 +35,15 @@ public class MainActivity extends AppCompatActivity  implements  MovieListAdapte
 
     private ArrayList<MovieSearchResult> movieSearchResult;
 
+    // Member variable for the Database
+    private AppDatabase mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompatActivity  implements  MovieListAdapte
 
     private void makeMovieSearchQuery() {
         String sortString = getSortMethod();
-        URL movieSearchUrl = NetworkUtils.buildUrl(sortString);
+        URL movieSearchUrl = NetworkUtils.buildSearchUrl(sortString);
         new MovieSearchQueryTask().execute(movieSearchUrl);
     }
 
@@ -120,6 +127,42 @@ public class MainActivity extends AppCompatActivity  implements  MovieListAdapte
         }
     }
 
+    private void loadFavoriteMovies() {
+        new FetchFavoriteMoviesTask().execute();
+    }
+
+    public class FetchFavoriteMoviesTask extends AsyncTask<Void, Void, ArrayList<MovieSearchResult>> {
+
+        @Override
+        protected ArrayList<MovieSearchResult> doInBackground(Void... voids) {
+
+            List<MovieEntry> movieEntryList = mDb.movieDao().loadAllMovies();
+            ArrayList<MovieSearchResult> movieSearchResultArrayList = new ArrayList<>();
+
+            for(int i = 0; i< movieEntryList.size(); i++)
+            {
+                MovieEntry movieEntry = movieEntryList.get(i);
+                MovieSearchResult movieSearchResult = new MovieSearchResult();
+                movieSearchResult.setId(movieEntry.getId());
+                movieSearchResult.setOverview(movieEntry.getOverview());
+                movieSearchResult.setPoster_path(movieEntry.getPoster_path());
+                movieSearchResult.setRelease_date(movieEntry.getRelease_date());
+                movieSearchResult.setTitle(movieEntry.getTitle());
+
+                movieSearchResultArrayList.add(movieSearchResult);
+            }
+
+            return movieSearchResultArrayList;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MovieSearchResult> movieSearchResults) {
+            //movieSearchResult = movieSearchResults;
+            mAdapter = new MovieListAdapter(movieSearchResults, MainActivity.this, MainActivity.this);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+    }
+
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
@@ -150,6 +193,15 @@ public class MainActivity extends AppCompatActivity  implements  MovieListAdapte
             setTitle("Top Rated Movies");
             updateSharedPrefs(getString(R.string.pref_sort_top_rated_key));
             makeMovieSearchQuery();
+            return true;
+        }
+        else if (itemThatWasClickedId == R.id.action_favorites) {
+            Context context = MainActivity.this;
+            //String textToShow = "top rated Search clicked";
+            //Toast.makeText(context, textToShow, Toast.LENGTH_SHORT).show();
+            setTitle("Favorite Movies");
+            updateSharedPrefs("favorites");
+            loadFavoriteMovies();
             return true;
         }
         return super.onOptionsItemSelected(item);
